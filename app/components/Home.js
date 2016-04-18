@@ -46,6 +46,8 @@ export default class Home extends React.Component {
   };
 
   render() {
+    const { home, dispatchAsync, dispatchSync } = this.props;
+    console.log(dispatchAsync);
     const actions = [
       <FlatButton
         label="Cancel"
@@ -57,13 +59,15 @@ export default class Home extends React.Component {
         primary={true}
         disabled={true}
         onTouchTap={this.handleClose}
-      />,
+      />
     ];
 
     return (
       <Tabs
       >
-        <Tab label="Transact" value="transact"
+        <Tab
+          onActive={dispatchAsync}
+          label="Transact" value="transact"
              icon={<FontIcon className="material-icons">account_balance_wallet</FontIcon>}>
           <div style={styles.container}>
             <TextField
@@ -71,8 +75,10 @@ export default class Home extends React.Component {
               floatingLabelText="Send ether to"
             />
             <br />
-            <RaisedButton label="Cancel"/> <RaisedButton label="Submit" onTouchTap={this.handleOpen}
-                                                         primary/>
+            <RaisedButton label="Cancel"/>
+            <RaisedButton label="Submit" onTouchTap={this.handleOpen}
+                          primary/>
+            <p>{`${home} on first tab`}</p>
             <Dialog
               title="Unlock account"
               actions={actions}
@@ -86,12 +92,16 @@ export default class Home extends React.Component {
             </Dialog>
           </div>
         </Tab>
-        <Tab label="History" value="history"
+        <Tab
+          onActive={dispatchSync}
+          label="History" value="history"
              icon={<FontIcon className="material-icons">history</FontIcon>}>
           <div>
             <List>
-              <ListItem primaryText="Sent 12 eth" leftIcon={<FontIcon className="material-icons">arrow_back</FontIcon>}/>
-              <ListItem primaryText="Received 10 eth" leftIcon={<FontIcon className="material-icons">arrow_forward</FontIcon>}/>
+              <ListItem primaryText="Sent 12 eth"
+                        leftIcon={<FontIcon className="material-icons">arrow_back</FontIcon>}/>
+              <ListItem primaryText={`${home} on second tab`}
+                        leftIcon={<FontIcon className="material-icons">arrow_forward</FontIcon>}/>
             </List>
           </div>
         </Tab>
@@ -99,14 +109,14 @@ export default class Home extends React.Component {
         <Tab label="Settings" value="settings"
              icon={<FontIcon className="material-icons">settings</FontIcon>}>
           <div style={styles.container}>
-             <TextField hintText="First name" underlineShow={false} />
-    <Divider />
-    <TextField hintText="Middle name" underlineShow={false} />
-    <Divider />
-    <TextField hintText="Last name" underlineShow={false} />
-    <Divider />
-    <TextField hintText="Email address" underlineShow={false} />
-    <Divider />
+            <TextField hintText="First name" underlineShow={false}/>
+            <Divider />
+            <TextField hintText="Middle name" underlineShow={false}/>
+            <Divider />
+            <TextField hintText="Last name" underlineShow={false}/>
+            <Divider />
+            <TextField hintText="Email address" underlineShow={false}/>
+            <Divider />
           </div>
         </Tab>
       </Tabs>
